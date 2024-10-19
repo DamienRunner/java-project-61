@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 public class App {
 
-    private final static Scanner scanner = new Scanner(System.in);
-    private final static Even evenGame = new Even();
+    private static final Scanner SCANNER = new Scanner(System.in);
+    private static final Even EVEN_GAME = new Even();
     private static boolean gameFlag = true;
 
     public static void main(String[] args) {
@@ -28,7 +28,7 @@ public class App {
         System.out.println("0 - Exit");
         int gameNumber = 0;
         try {
-            gameNumber = Integer.parseInt(scanner.nextLine());
+            gameNumber = Integer.parseInt(SCANNER.nextLine());
         } catch (NumberFormatException e) {
             System.out.println("Wrong game number");
             selectGame();
@@ -38,7 +38,7 @@ public class App {
                 gameFlag = false;
                 break;
             case 2:
-                evenGame.startGame();
+                EVEN_GAME.startGame();
                 break;
             default:
                 System.out.println("Wrong number");
