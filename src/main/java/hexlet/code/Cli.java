@@ -4,7 +4,13 @@ import java.util.Scanner;
 
 public class Cli {
 
+    private static final Scanner scanner = new Scanner(System.in);
+
     public static String introduceYourself() {
-        return new Scanner(System.in).nextLine();
+        return scanner.nextLine();
+    }
+
+    public static String scanLine() {
+        return scanner.nextLine();
     }
 }
