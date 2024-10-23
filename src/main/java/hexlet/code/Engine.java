@@ -1,6 +1,11 @@
 package hexlet.code;
 
-import hexlet.code.games.*;
+import hexlet.code.games.Calc;
+import hexlet.code.games.Even;
+import hexlet.code.games.Game;
+import hexlet.code.games.Greet;
+import hexlet.code.games.Nod;
+import hexlet.code.games.Progression;
 
 import java.util.Scanner;
 
@@ -11,6 +16,7 @@ public class Engine {
     private static final Game CALC_GAME = new Calc();
     private static final Game GREET_GAME = new Greet();
     private static final Game NOD_GAME = new Nod();
+    private static final Game PROGRESSION_GAME = new Progression();
 
     public void startGame(int gameId) {
         switch (gameId) {
@@ -28,6 +34,9 @@ public class Engine {
             case 4:
                 NOD_GAME.startGame();
                 break;
+            case 5:
+                PROGRESSION_GAME.startGame();
+                break;
             default:
                 System.out.println("Wrong number");
         }
@@ -39,6 +48,7 @@ public class Engine {
         System.out.println("2 - Even");
         System.out.println("3 - Calc");
         System.out.println("4 - GCD");
+        System.out.println("5 - Progression");
         System.out.println("0 - Exit");
         int gameNumber = 0;
         try {
