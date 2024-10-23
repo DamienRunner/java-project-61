@@ -34,7 +34,7 @@ public class Calc implements Game {
         System.out.print("May I have your name? ");
         playerName = scanner.nextLine();
         System.out.println("Hello, " + playerName + "!");
-        while (counter < 3) {
+        while (counter < END_CORRECT_ANSWERS_THRESHOLD) {
             game();
         }
         endGame();
