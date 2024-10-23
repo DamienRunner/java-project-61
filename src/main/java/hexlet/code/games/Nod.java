@@ -1,32 +1,15 @@
 package hexlet.code.games;
 
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Calc implements Game {
+public class Nod implements Game {
 
     private final Scanner scanner = new Scanner(System.in);
     private final Random random = new Random();
     private int counter;
     private String playerName;
-
-    private static int calculate(int num1, int num2, char operation) {
-        switch (operation) {
-            case '+':
-                return num1 + num2;
-            case '-':
-                return num1 - num2;
-            case '*':
-                return num1 * num2;
-            default:
-                throw new IllegalArgumentException("Неизвестная операция: " + operation);
-        }
-    }
-
-    private static char getRandomOperation(Random random) {
-        char[] operations = {'+', '-', '*'};
-        return operations[random.nextInt(operations.length)];
-    }
 
     @Override
     public void startGame() {
@@ -42,16 +25,14 @@ public class Calc implements Game {
 
     @Override
     public void endGame() {
-        System.out.printf("Congratulations, %s!\n", playerName);
+
     }
 
     private void game() {
-        int num1 = random.nextInt(100);
-        int num2 = random.nextInt(100);
-        char operation = getRandomOperation(random);
-        int correctAnswer = calculate(num1, num2, operation);
-        System.out.println("What is the result of the expression?");
-        System.out.printf("Question: %d %c %d\n", num1, operation, num2);
+        int number1 = random.nextInt(100) + 1;
+        int number2 = random.nextInt(100) + 1;
+        int correctAnswer = getNod(number1, number2);
+        System.out.printf("Question: %d %d\n", number1, number2);
         System.out.print("Your answer: ");
         String userAnswer = scanner.nextLine();
         try {
@@ -62,9 +43,18 @@ public class Calc implements Game {
             } else {
                 processWrongAnswer(userAnswer, correctAnswer);
             }
-        } catch (NumberFormatException e) {
+        } catch (InputMismatchException e) {
             processWrongAnswer(userAnswer, correctAnswer);
         }
+    }
+
+    private int getNod(int a, int b) {
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
     }
 
     private void processWrongAnswer(String userAnswer, int correctAnswer) {
