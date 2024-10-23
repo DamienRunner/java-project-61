@@ -1,11 +1,6 @@
 package hexlet.code;
 
-import hexlet.code.games.Calc;
-import hexlet.code.games.Even;
-import hexlet.code.games.Game;
-import hexlet.code.games.Greet;
-import hexlet.code.games.Nod;
-import hexlet.code.games.Progression;
+import hexlet.code.games.*;
 
 import java.util.Scanner;
 
@@ -17,6 +12,7 @@ public class Engine {
     private static final Game GREET_GAME = new Greet();
     private static final Game NOD_GAME = new Nod();
     private static final Game PROGRESSION_GAME = new Progression();
+    private static final Game IS_PRIME_GAME = new Prime();
 
     public void startGame(int gameId) {
         switch (gameId) {
@@ -36,6 +32,9 @@ public class Engine {
                 break;
             case 5:
                 PROGRESSION_GAME.startGame();
+                break;
+            case 6:
+                IS_PRIME_GAME.startGame();
                 break;
             default:
                 System.out.println("Wrong number");
