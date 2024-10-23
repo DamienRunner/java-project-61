@@ -5,8 +5,6 @@ import hexlet.code.Cli;
 import java.util.Random;
 
 public class Even implements Game {
-
-    private final int endCorrectAnswersThreshold = 3;
     private int counter;
     private String playerName;
 
@@ -32,7 +30,7 @@ public class Even implements Game {
     }
 
     private void game() {
-        while (counter < endCorrectAnswersThreshold) {
+        while (counter < END_CORRECT_ANSWERS_THRESHOLD) {
             int number = getRandomNumber();
             System.out.println("Question: " + number);
             String userGuessString = Cli.scanLine().toLowerCase();
