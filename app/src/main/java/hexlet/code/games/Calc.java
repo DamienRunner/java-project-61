@@ -11,16 +11,12 @@ public class Calc implements Game {
     private String playerName;
 
     private static int calculate(int num1, int num2, char operation) {
-        switch (operation) {
-            case '+':
-                return num1 + num2;
-            case '-':
-                return num1 - num2;
-            case '*':
-                return num1 * num2;
-            default:
-                throw new IllegalArgumentException("Неизвестная операция: " + operation);
-        }
+        return switch (operation) {
+            case '+' -> num1 + num2;
+            case '-' -> num1 - num2;
+            case '*' -> num1 * num2;
+            default -> throw new IllegalArgumentException("Wrong operation: " + operation);
+        };
     }
 
     private static char getRandomOperation(Random random) {
