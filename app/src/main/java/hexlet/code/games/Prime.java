@@ -18,6 +18,7 @@ public class Prime implements Game {
         System.out.print("May I have your name? ");
         playerName = scanner.nextLine();
         System.out.println("Hello, " + playerName + "!");
+        System.out.println("Answer 'yes' if given number is prime. Otherwise answer 'no'.");
         setPlayerName(playerName);
         game();
     }
@@ -31,7 +32,7 @@ public class Prime implements Game {
         while (counter < END_CORRECT_ANSWERS_THRESHOLD) {
             int number = random.nextInt(100) + 1;
             boolean correctAnswer = isPrime(number);
-            System.out.printf("Question: Is %d a prime number? (yes/no)\n", number);
+            System.out.printf("Question: %d", number);
             System.out.print("Your answer: ");
             String userAnswer = scanner.next().trim().toLowerCase();
             if ((correctAnswer && userAnswer.equals("yes")) || (!correctAnswer && userAnswer.equals("no"))) {
