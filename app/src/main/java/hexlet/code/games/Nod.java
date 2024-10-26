@@ -3,11 +3,12 @@ package hexlet.code.games;
 import java.util.Random;
 import java.util.Scanner;
 
+import static hexlet.code.service.GameProcessService.*;
+
 public class Nod implements Game {
 
     private final Scanner scanner = new Scanner(System.in);
     private final Random random = new Random();
-    private int counter;
     private String playerName;
 
     @Override
@@ -16,10 +17,9 @@ public class Nod implements Game {
         System.out.print("May I have your name? ");
         playerName = scanner.nextLine();
         System.out.println("Hello, " + playerName + "!");
-        while (counter < END_CORRECT_ANSWERS_THRESHOLD) {
-            game();
-        }
-        endGame();
+        System.out.println("Find the greatest common divisor of given numbers.");
+        setPlayerName(playerName);
+        game();
     }
 
     @Override
@@ -28,22 +28,17 @@ public class Nod implements Game {
     }
 
     private void game() {
-        int number1 = random.nextInt(100) + 1;
-        int number2 = random.nextInt(100) + 1;
-        int correctAnswer = getNod(number1, number2);
-        System.out.printf("Question: %d %d\n", number1, number2);
-        System.out.print("Your answer: ");
-        String userAnswer = scanner.nextLine();
-        try {
-            int parseAnswer = Integer.parseInt(userAnswer);
-            if (parseAnswer == correctAnswer) {
-                System.out.println("Correct!");
-                counter++;
-            } else {
-                processWrongAnswer(userAnswer, correctAnswer);
+        while (counter < END_CORRECT_ANSWERS_THRESHOLD) {
+            int number1 = random.nextInt(100) + 1;
+            int number2 = random.nextInt(100) + 1;
+            int correctAnswer = getNod(number1, number2);
+            System.out.printf("Question: %d %d\n", number1, number2);
+            if (checkAnswer(correctAnswer)) {
+                break;
             }
-        } catch (NumberFormatException e) {
-            processWrongAnswer(userAnswer, correctAnswer);
+        }
+        if (counter == END_CORRECT_ANSWERS_THRESHOLD) {
+            endGame();
         }
     }
 
@@ -54,10 +49,5 @@ public class Nod implements Game {
             a = temp;
         }
         return a;
-    }
-
-    private void processWrongAnswer(String userAnswer, int correctAnswer) {
-        System.out.printf("'%s' is wrong answer ;(. Correct answer was '%d'.\n", userAnswer, correctAnswer);
-        System.out.printf("Let's try again, %s!\n", playerName);
     }
 }

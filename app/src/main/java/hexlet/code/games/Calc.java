@@ -3,11 +3,12 @@ package hexlet.code.games;
 import java.util.Random;
 import java.util.Scanner;
 
+import static hexlet.code.service.GameProcessService.*;
+
 public class Calc implements Game {
 
     private final Scanner scanner = new Scanner(System.in);
     private final Random random = new Random();
-    private int counter;
     private String playerName;
 
     private static int calculate(int num1, int num2, char operation) {
@@ -30,10 +31,9 @@ public class Calc implements Game {
         System.out.print("May I have your name? ");
         playerName = scanner.nextLine();
         System.out.println("Hello, " + playerName + "!");
-        while (counter < END_CORRECT_ANSWERS_THRESHOLD) {
-            game();
-        }
-        endGame();
+        System.out.println("What is the result of the expression?");
+        setPlayerName(playerName);
+        game();
     }
 
     @Override
@@ -42,29 +42,18 @@ public class Calc implements Game {
     }
 
     private void game() {
-        int num1 = random.nextInt(100);
-        int num2 = random.nextInt(100);
-        char operation = getRandomOperation(random);
-        int correctAnswer = calculate(num1, num2, operation);
-        System.out.println("What is the result of the expression?");
-        System.out.printf("Question: %d %c %d\n", num1, operation, num2);
-        System.out.print("Your answer: ");
-        String userAnswer = scanner.nextLine();
-        try {
-            int parseAnswer = Integer.parseInt(userAnswer);
-            if (parseAnswer == correctAnswer) {
-                System.out.println("Correct!");
-                counter++;
-            } else {
-                processWrongAnswer(userAnswer, correctAnswer);
+        while (counter < END_CORRECT_ANSWERS_THRESHOLD) {
+            int num1 = random.nextInt(100);
+            int num2 = random.nextInt(100);
+            char operation = getRandomOperation(random);
+            int correctAnswer = calculate(num1, num2, operation);
+            System.out.printf("Question: %d %c %d\n", num1, operation, num2);
+            if (checkAnswer(correctAnswer)) {
+                break;
             }
-        } catch (NumberFormatException e) {
-            processWrongAnswer(userAnswer, correctAnswer);
         }
-    }
-
-    private void processWrongAnswer(String userAnswer, int correctAnswer) {
-        System.out.printf("'%s' is wrong answer ;(. Correct answer was '%d'.\n", userAnswer, correctAnswer);
-        System.out.printf("Let's try again, %s!\n", playerName);
+        if (counter == END_CORRECT_ANSWERS_THRESHOLD) {
+            endGame();
+        }
     }
 }

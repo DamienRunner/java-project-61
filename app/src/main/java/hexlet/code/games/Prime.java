@@ -1,7 +1,9 @@
 package hexlet.code.games;
 
-import java.util.Scanner;
 import java.util.Random;
+import java.util.Scanner;
+
+import static hexlet.code.service.GameProcessService.setPlayerName;
 
 public class Prime implements Game {
 
@@ -16,10 +18,8 @@ public class Prime implements Game {
         System.out.print("May I have your name? ");
         playerName = scanner.nextLine();
         System.out.println("Hello, " + playerName + "!");
-        while (counter < END_CORRECT_ANSWERS_THRESHOLD) {
-            game();
-        }
-        endGame();
+        setPlayerName(playerName);
+        game();
     }
 
     @Override
@@ -28,16 +28,21 @@ public class Prime implements Game {
     }
 
     private void game() {
-        int number = random.nextInt(100) + 1;
-        boolean correctAnswer = isPrime(number);
-        System.out.printf("Question: Is %d a prime number? (yes/no)\n", number);
-        System.out.print("Your answer: ");
-        String userAnswer = scanner.next().trim().toLowerCase();
-        if ((correctAnswer && userAnswer.equals("yes")) || (!correctAnswer && userAnswer.equals("no"))) {
-            System.out.println("Correct!");
-            counter++;
-        } else {
-            System.out.printf("Wrong! The correct answer was %s.\n", correctAnswer ? "yes" : "no");
+        while (counter < END_CORRECT_ANSWERS_THRESHOLD) {
+            int number = random.nextInt(100) + 1;
+            boolean correctAnswer = isPrime(number);
+            System.out.printf("Question: Is %d a prime number? (yes/no)\n", number);
+            System.out.print("Your answer: ");
+            String userAnswer = scanner.next().trim().toLowerCase();
+            if ((correctAnswer && userAnswer.equals("yes")) || (!correctAnswer && userAnswer.equals("no"))) {
+                System.out.println("Correct!");
+                counter++;
+            } else {
+                System.out.printf("Wrong! The correct answer was %s.\n", correctAnswer ? "yes" : "no");
+            }
+        }
+        if (counter == END_CORRECT_ANSWERS_THRESHOLD) {
+            endGame();
         }
     }
 
