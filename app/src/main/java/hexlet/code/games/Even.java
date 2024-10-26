@@ -57,9 +57,9 @@ public class Even implements Game {
 
     private void printErrorMessages(String userGuessString) {
         if (userGuessString.equals("yes")) {
-            System.out.println(userGuessString + " is wrong answer ;(. Correct answer was 'no'.");
+            System.out.println("'" + userGuessString + "'" + " is wrong answer ;(. Correct answer was 'no'.");
         } else {
-            System.out.println(userGuessString + " is wrong answer ;(. Correct answer was 'yes'.");
+            System.out.println("'" + userGuessString + "'" + " is wrong answer ;(. Correct answer was 'yes'.");
         }
         System.out.println("Let's try again, " + playerName + "!");
     }
