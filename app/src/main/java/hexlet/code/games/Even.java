@@ -34,10 +34,10 @@ public class Even implements Game {
         boolean userGuess = checkGuess(userGuessString, number % 2 == 0);
         if (userGuess) {
             System.out.println("Correct!");
+            endGame();
         } else {
             printErrorMessages(userGuessString);
         }
-        endGame();
     }
 
     private boolean checkGuess(String guess, boolean even) {
