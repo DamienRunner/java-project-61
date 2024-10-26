@@ -1,12 +1,6 @@
 package hexlet.code;
 
-import hexlet.code.games.Calc;
-import hexlet.code.games.Even;
-import hexlet.code.games.Game;
-import hexlet.code.games.Greet;
-import hexlet.code.games.Nod;
-import hexlet.code.games.Prime;
-import hexlet.code.games.Progression;
+import hexlet.code.games.*;
 
 import java.util.Scanner;
 
@@ -48,25 +42,26 @@ public class Engine {
     }
 
     public void startPlayground() {
-        System.out.println("Please enter the game number and press Enter.");
-        System.out.println("1 - Greet");
-        System.out.println("2 - Even");
-        System.out.println("3 - Calc");
-        System.out.println("4 - GCD");
-        System.out.println("5 - Progression");
-        System.out.println("6 - Prime");
-        System.out.println("0 - Exit");
-        int gameNumber = 0;
-        try {
-            gameNumber = Integer.parseInt(SCANNER.nextLine());
-            if (gameNumber == 0) {
-                return;
+        while (true) {
+            System.out.println("Please enter the game number and press Enter.");
+            System.out.println("1 - Greet");
+            System.out.println("2 - Even");
+            System.out.println("3 - Calc");
+            System.out.println("4 - GCD");
+            System.out.println("5 - Progression");
+            System.out.println("6 - Prime");
+            System.out.println("0 - Exit");
+            int gameNumber;
+            try {
+                gameNumber = Integer.parseInt(SCANNER.nextLine());
+                if (gameNumber == 0) {
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Wrong game number");
+                continue;
             }
-        } catch (NumberFormatException e) {
-            System.out.println("Wrong game number");
-            startPlayground();
+            startGame(gameNumber);
         }
-        startGame(gameNumber);
-        startPlayground();
     }
 }
