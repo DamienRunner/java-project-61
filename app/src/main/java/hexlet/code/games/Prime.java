@@ -32,7 +32,7 @@ public class Prime implements Game {
         while (counter < END_CORRECT_ANSWERS_THRESHOLD) {
             int number = random.nextInt(100) + 1;
             boolean correctAnswer = isPrime(number);
-            System.out.printf("Question: %d/n", number);
+            System.out.printf("Question: %d\n", number);
             System.out.print("Your answer: ");
             String userAnswer = scanner.next().trim().toLowerCase();
             if ((correctAnswer && userAnswer.equals("yes")) || (!correctAnswer && userAnswer.equals("no"))) {
