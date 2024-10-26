@@ -62,6 +62,7 @@ public class Engine {
                 continue;
             }
             startGame(gameNumber);
+            break;
         }
     }
 }
