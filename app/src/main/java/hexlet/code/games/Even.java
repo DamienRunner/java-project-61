@@ -5,7 +5,6 @@ import hexlet.code.Cli;
 import java.util.Random;
 
 public class Even implements Game {
-    private int counter;
     private String playerName;
 
     public static int getRandomNumber() {
@@ -15,7 +14,6 @@ public class Even implements Game {
 
     @Override
     public void startGame() {
-        counter = 0;
         System.out.println("Welcome to the Brain Games!");
         System.out.println("May I have your name?");
         playerName = Cli.introduceYourself();
@@ -30,17 +28,14 @@ public class Even implements Game {
     }
 
     private void game() {
-        while (counter < END_CORRECT_ANSWERS_THRESHOLD) {
-            int number = getRandomNumber();
-            System.out.println("Question: " + number);
-            String userGuessString = Cli.scanLine().toLowerCase();
-            boolean userGuess = checkGuess(userGuessString, number % 2 == 0);
-            if (userGuess) {
-                System.out.println("Correct!");
-                counter++;
-            } else {
-                printErrorMessages(userGuessString);
-            }
+        int number = getRandomNumber();
+        System.out.println("Question: " + number);
+        String userGuessString = Cli.scanLine().toLowerCase();
+        boolean userGuess = checkGuess(userGuessString, number % 2 == 0);
+        if (userGuess) {
+            System.out.println("Correct!");
+        } else {
+            printErrorMessages(userGuessString);
         }
         endGame();
     }
