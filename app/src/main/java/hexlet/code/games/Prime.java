@@ -39,7 +39,9 @@ public class Prime implements Game {
                 System.out.println("Correct!");
                 counter++;
             } else {
-                System.out.printf("Wrong! The correct answer was %s.\n", correctAnswer ? "yes" : "no");
+                System.out.printf("'%s' is wrong answer ;(. Correct answer was '%s'.\n", userAnswer, correctAnswer ?
+                        "yes" : "no");
+                System.out.printf("Let's try again, %s!\n", playerName);
                 break;
             }
         }
