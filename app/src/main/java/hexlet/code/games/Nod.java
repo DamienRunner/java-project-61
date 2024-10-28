@@ -3,10 +3,13 @@ package hexlet.code.games;
 import java.util.Random;
 import java.util.Scanner;
 
-import static hexlet.code.service.GameProcessService.*;
+import static hexlet.code.service.GameProcessService.checkAnswer;
+import static hexlet.code.service.GameProcessService.getCounter;
+import static hexlet.code.service.GameProcessService.setPlayerName;
 
 public class Nod implements Game {
 
+    private static final int MAX_RANDOM = 100;
     private final Scanner scanner = new Scanner(System.in);
     private final Random random = new Random();
     private String playerName;
@@ -28,16 +31,16 @@ public class Nod implements Game {
     }
 
     private void game() {
-        while (counter < END_CORRECT_ANSWERS_THRESHOLD) {
-            int number1 = random.nextInt(100) + 1;
-            int number2 = random.nextInt(100) + 1;
+        while (getCounter() < END_CORRECT_ANSWERS_THRESHOLD) {
+            int number1 = random.nextInt(MAX_RANDOM) + 1;
+            int number2 = random.nextInt(MAX_RANDOM) + 1;
             int correctAnswer = getNod(number1, number2);
             System.out.printf("Question: %d %d\n", number1, number2);
             if (checkAnswer(correctAnswer)) {
                 break;
             }
         }
-        if (counter == END_CORRECT_ANSWERS_THRESHOLD) {
+        if (getCounter() == END_CORRECT_ANSWERS_THRESHOLD) {
             endGame();
         }
     }

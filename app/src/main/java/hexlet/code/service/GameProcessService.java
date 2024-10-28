@@ -4,9 +4,17 @@ import java.util.Scanner;
 
 public class GameProcessService {
 
-    private static final Scanner scanner = new Scanner(System.in);
+    private static final Scanner SCANNER = new Scanner(System.in);
     private static String playerName;
-    public static int counter;
+    private static int counter;
+
+    public static int getCounter() {
+        return counter;
+    }
+
+    public static void setCounter(int counter) {
+        GameProcessService.counter = counter;
+    }
 
     public static void setPlayerName(String playerName) {
         GameProcessService.playerName = playerName;
@@ -14,7 +22,7 @@ public class GameProcessService {
 
     public static boolean checkAnswer(int correctAnswer) {
         System.out.print("Your answer: ");
-        String userAnswer = scanner.nextLine();
+        String userAnswer = SCANNER.nextLine();
         try {
             int parseAnswer = Integer.parseInt(userAnswer);
             if (parseAnswer == correctAnswer) {

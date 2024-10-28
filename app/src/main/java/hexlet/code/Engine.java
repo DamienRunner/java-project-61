@@ -14,7 +14,7 @@ public class Engine {
     private static final Game PROGRESSION_GAME = new Progression();
     private static final Game IS_PRIME_GAME = new Prime();
 
-    public void startGame(int gameId) {
+    public static void startGame(int gameId) {
         switch (gameId) {
             case 0:
                 break;
@@ -41,7 +41,7 @@ public class Engine {
         }
     }
 
-    public void startPlayground() {
+    public static void startPlayground() {
         while (true) {
             System.out.println("Please enter the game number and press Enter.");
             System.out.println("1 - Greet");

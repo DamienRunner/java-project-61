@@ -3,13 +3,18 @@ package hexlet.code.games;
 import java.util.Random;
 import java.util.Scanner;
 
-import static hexlet.code.service.GameProcessService.*;
+import static hexlet.code.service.GameProcessService.checkAnswer;
+import static hexlet.code.service.GameProcessService.getCounter;
+import static hexlet.code.service.GameProcessService.setPlayerName;
 
 public class Progression implements Game {
 
     private final Scanner scanner = new Scanner(System.in);
     private final Random random = new Random();
     private String playerName;
+    private static final int MIN_LENGTH = 5;
+    private static final int MAX_LENGTH = 10;
+    private static final int MAX_ADDITIONAL_LENGTH = 6;
 
     @Override
     public void startGame() {
@@ -28,10 +33,10 @@ public class Progression implements Game {
     }
 
     private void game() {
-        while (counter < END_CORRECT_ANSWERS_THRESHOLD) {
-            int length = random.nextInt(6) + 5;
-            int start = random.nextInt(10);
-            int step = random.nextInt(5) + 1;
+        while (getCounter() < END_CORRECT_ANSWERS_THRESHOLD) {
+            int length = random.nextInt(MAX_ADDITIONAL_LENGTH) + MIN_LENGTH;
+            int start = random.nextInt(MAX_LENGTH);
+            int step = random.nextInt(MIN_LENGTH) + 1;
             int hiddenIndex = random.nextInt(length);
             int[] progression = new int[length];
             for (int i = 0; i < length; i++) {
@@ -50,7 +55,7 @@ public class Progression implements Game {
                 break;
             }
         }
-        if (counter == END_CORRECT_ANSWERS_THRESHOLD) {
+        if (getCounter() == END_CORRECT_ANSWERS_THRESHOLD) {
             endGame();
         }
     }

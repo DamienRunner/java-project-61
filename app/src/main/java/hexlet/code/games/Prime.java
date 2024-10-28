@@ -7,6 +7,7 @@ import static hexlet.code.service.GameProcessService.setPlayerName;
 
 public class Prime implements Game {
 
+    private static final int MAX_RANDOM = 100;
     private final Scanner scanner = new Scanner(System.in);
     private final Random random = new Random();
     private int counter;
@@ -30,7 +31,7 @@ public class Prime implements Game {
 
     private void game() {
         while (counter < END_CORRECT_ANSWERS_THRESHOLD) {
-            int number = random.nextInt(100) + 1;
+            int number = random.nextInt(MAX_RANDOM) + 1;
             boolean correctAnswer = isPrime(number);
             System.out.printf("Question: %d\n", number);
             System.out.print("Your answer: ");
@@ -39,8 +40,8 @@ public class Prime implements Game {
                 System.out.println("Correct!");
                 counter++;
             } else {
-                System.out.printf("'%s' is wrong answer ;(. Correct answer was '%s'.\n", userAnswer, correctAnswer ?
-                        "yes" : "no");
+                System.out.printf("'%s' is wrong answer ;(. Correct answer was '%s'.\n", userAnswer, correctAnswer
+                        ? "yes" : "no");
                 System.out.printf("Let's try again, %s!\n", playerName);
                 break;
             }
