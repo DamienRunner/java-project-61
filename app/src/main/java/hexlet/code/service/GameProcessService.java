@@ -12,12 +12,12 @@ public class GameProcessService {
         return counter;
     }
 
-    public static void setCounter(int counter) {
-        GameProcessService.counter = counter;
+    public static void setCounter(int newCounter) {
+        GameProcessService.counter = newCounter;
     }
 
-    public static void setPlayerName(String playerName) {
-        GameProcessService.playerName = playerName;
+    public static void setPlayerName(String newPlayerName) {
+        GameProcessService.playerName = newPlayerName;
     }
 
     public static boolean checkAnswer(int correctAnswer) {
