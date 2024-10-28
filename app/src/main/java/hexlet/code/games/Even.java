@@ -5,12 +5,14 @@ import hexlet.code.Cli;
 import java.util.Random;
 
 public final class Even implements Game {
+
+    private static final int MAX_RANDOM = 100;
     private int counter;
     private String playerName;
 
     public static int getRandomNumber() {
         Random random = new Random();
-        return random.nextInt(100) + 1;
+        return random.nextInt(MAX_RANDOM) + 1;
     }
 
     @Override
