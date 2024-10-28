@@ -7,7 +7,7 @@ import static hexlet.code.service.GameProcessService.checkAnswer;
 import static hexlet.code.service.GameProcessService.getCounter;
 import static hexlet.code.service.GameProcessService.setPlayerName;
 
-public class Calc implements Game {
+public final class Calc implements Game {
 
     private static final int MAX_RANDOM = 100;
     private final Scanner scanner = new Scanner(System.in);

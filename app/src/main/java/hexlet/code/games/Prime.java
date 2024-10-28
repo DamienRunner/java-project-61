@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 import static hexlet.code.service.GameProcessService.setPlayerName;
 
-public class Prime implements Game {
+public final class Prime implements Game {
 
     private static final int MAX_RANDOM = 100;
     private final Scanner scanner = new Scanner(System.in);
