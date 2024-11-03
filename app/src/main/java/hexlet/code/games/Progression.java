@@ -1,62 +1,48 @@
 package hexlet.code.games;
 
-import java.util.Random;
-import java.util.Scanner;
-
-import static hexlet.code.service.GameProcessService.checkAnswer;
-import static hexlet.code.service.GameProcessService.getCounter;
-import static hexlet.code.service.GameProcessService.setPlayerName;
+import static hexlet.code.service.Constants.MAX_ADDITIONAL_LENGTH;
+import static hexlet.code.service.Constants.MAX_LENGTH;
+import static hexlet.code.service.Constants.MIN_LENGTH;
+import static hexlet.code.service.GameProcessService.getRandomInt;
 
 public final class Progression implements Game {
 
-    private final Scanner scanner = new Scanner(System.in);
-    private final Random random = new Random();
-    private String playerName;
-    private static final int MIN_LENGTH = 5;
-    private static final int MAX_LENGTH = 10;
-    private static final int MAX_ADDITIONAL_LENGTH = 6;
+    private static int answer;
 
     @Override
-    public void startGame() {
-        System.out.println("Welcome to the Brain Games!");
-        System.out.print("May I have your name? ");
-        playerName = scanner.nextLine();
-        System.out.println("Hello, " + playerName + "!");
+    public boolean checkGuess(String guess) {
+        return answer == Integer.parseInt(guess);
+    }
+
+    @Override
+    public void printRules() {
         System.out.println("What number is missing in the progression?");
-        setPlayerName(playerName);
-        game();
     }
 
     @Override
-    public void endGame() {
-        System.out.printf("Congratulations, %s!\n", playerName);
+    public void printQuestionAndCheck() {
+        int length = getRandomInt(0, MAX_ADDITIONAL_LENGTH) + MIN_LENGTH;
+        int start = getRandomInt(0, MAX_LENGTH);
+        int step = getRandomInt(1, MIN_LENGTH);
+        int hiddenIndex = getRandomInt(0, length);
+        int[] progression = new int[length];
+        for (int i = 0; i < length; i++) {
+            progression[i] = start + i * step;
+        }
+        System.out.print("Question: ");
+        for (int i = 0; i < length; i++) {
+            if (i == hiddenIndex) {
+                System.out.print(".. ");
+            } else {
+                System.out.print(progression[i] + " ");
+            }
+        }
+        answer = progression[hiddenIndex];
     }
 
-    private void game() {
-        while (getCounter() < END_CORRECT_ANSWERS_THRESHOLD) {
-            int length = random.nextInt(MAX_ADDITIONAL_LENGTH) + MIN_LENGTH;
-            int start = random.nextInt(MAX_LENGTH);
-            int step = random.nextInt(MIN_LENGTH) + 1;
-            int hiddenIndex = random.nextInt(length);
-            int[] progression = new int[length];
-            for (int i = 0; i < length; i++) {
-                progression[i] = start + i * step;
-            }
-            System.out.print("Question: ");
-            for (int i = 0; i < length; i++) {
-                if (i == hiddenIndex) {
-                    System.out.print(".. ");
-                } else {
-                    System.out.print(progression[i] + " ");
-                }
-            }
-            int correctAnswer = progression[hiddenIndex];
-            if (checkAnswer(correctAnswer)) {
-                break;
-            }
-        }
-        if (getCounter() == END_CORRECT_ANSWERS_THRESHOLD) {
-            endGame();
-        }
+    @Override
+    public void printErrorMessage(String playerName, String userGuessString) {
+        System.out.printf("'%s' is wrong answer ;(. Correct answer was '%d'.\n", userGuessString, answer);
+        System.out.println("Let's try again, " + playerName + "!");
     }
 }

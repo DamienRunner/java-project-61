@@ -1,22 +1,24 @@
 package hexlet.code.games;
 
-import java.util.Scanner;
-
 public final class Greet implements Game {
 
-    private final Scanner scanner = new Scanner(System.in);
-
     @Override
-    public void startGame() {
-        System.out.println("Welcome to the Brain Games!");
-        System.out.print("May I have your name? ");
-        String playerName = scanner.nextLine();
-        System.out.println("Hello, " + playerName + "!");
-        endGame();
+    public boolean checkGuess(String guess) {
+        return false;
     }
 
     @Override
-    public void endGame() {
+    public void printRules() {
+
+    }
+
+    @Override
+    public void printQuestionAndCheck() {
+
+    }
+
+    @Override
+    public void printErrorMessage(String playerName, String userGuessString) {
 
     }
 }

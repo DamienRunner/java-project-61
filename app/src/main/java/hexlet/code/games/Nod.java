@@ -1,49 +1,11 @@
 package hexlet.code.games;
 
-import java.util.Random;
-import java.util.Scanner;
-
-import static hexlet.code.service.GameProcessService.checkAnswer;
-import static hexlet.code.service.GameProcessService.getCounter;
-import static hexlet.code.service.GameProcessService.setPlayerName;
+import static hexlet.code.service.Constants.MAX_RANDOM;
+import static hexlet.code.service.GameProcessService.getRandomInt;
 
 public final class Nod implements Game {
 
-    private static final int MAX_RANDOM = 100;
-    private final Scanner scanner = new Scanner(System.in);
-    private final Random random = new Random();
-    private String playerName;
-
-    @Override
-    public void startGame() {
-        System.out.println("Welcome to the Brain Games!");
-        System.out.print("May I have your name? ");
-        playerName = scanner.nextLine();
-        System.out.println("Hello, " + playerName + "!");
-        System.out.println("Find the greatest common divisor of given numbers.");
-        setPlayerName(playerName);
-        game();
-    }
-
-    @Override
-    public void endGame() {
-        System.out.printf("Congratulations, %s!\n", playerName);
-    }
-
-    private void game() {
-        while (getCounter() < END_CORRECT_ANSWERS_THRESHOLD) {
-            int number1 = random.nextInt(MAX_RANDOM) + 1;
-            int number2 = random.nextInt(MAX_RANDOM) + 1;
-            int correctAnswer = getNod(number1, number2);
-            System.out.printf("Question: %d %d\n", number1, number2);
-            if (checkAnswer(correctAnswer)) {
-                break;
-            }
-        }
-        if (getCounter() == END_CORRECT_ANSWERS_THRESHOLD) {
-            endGame();
-        }
-    }
+    private static int answer;
 
     private int getNod(int a, int b) {
         while (b != 0) {
@@ -52,5 +14,34 @@ public final class Nod implements Game {
             a = temp;
         }
         return a;
+    }
+
+    @Override
+    public boolean checkGuess(String guess) {
+        try {
+            int parseAnswer = Integer.parseInt(guess);
+            return parseAnswer == answer;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    @Override
+    public void printRules() {
+        System.out.println("Find the greatest common divisor of given numbers.");
+    }
+
+    @Override
+    public void printQuestionAndCheck() {
+        int number1 = getRandomInt(0, MAX_RANDOM);
+        int number2 = getRandomInt(0, MAX_RANDOM);
+        answer = getNod(number1, number2);
+        System.out.printf("Question: %d %d\n", number1, number2);
+    }
+
+    @Override
+    public void printErrorMessage(String playerName, String userGuessString) {
+        System.out.printf("'%s' is wrong answer ;(. Correct answer was '%d'.\n", userGuessString, answer);
+        System.out.println("Let's try again, " + playerName + "!");
     }
 }

@@ -3,13 +3,15 @@ package hexlet.code.games;
 public interface Game {
     int END_CORRECT_ANSWERS_THRESHOLD = 3;
     /**
-     * Starts the game by welcoming the player and asking for their name.
+     * Checking user's answer;
      *
      */
-    void startGame();
+    boolean checkGuess(String guess);
     /**
-     * Ends the game.
+     * Prints rules of the game.
      *
      */
-    void endGame();
+    void printRules();
+    void printQuestionAndCheck();
+    void printErrorMessage(String playerName, String userGuessString);
 }

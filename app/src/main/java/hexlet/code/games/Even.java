@@ -1,71 +1,43 @@
 package hexlet.code.games;
 
-import hexlet.code.Cli;
+import hexlet.code.service.GameProcessService;
 
-import java.util.Random;
+import static hexlet.code.service.Constants.MIN_RANDOM;
 
 public final class Even implements Game {
 
     private static final int MAX_RANDOM = 100;
-    private int counter;
-    private String playerName;
+    private static String answer;
+    private static boolean booleanAnswer;
 
-    public static int getRandomNumber() {
-        Random random = new Random();
-        return random.nextInt(MAX_RANDOM) + 1;
+    public void printQuestionAndCheck() {
+        int number = GameProcessService.getRandomInt(MIN_RANDOM, MAX_RANDOM);
+        System.out.println("Question: " + number);
+        booleanAnswer = number % 2 == 0;
+        answer = booleanAnswer ? "yes" : "no";
     }
 
     @Override
-    public void startGame() {
-        counter = 0;
-        System.out.println("Welcome to the Brain Games!");
-        System.out.println("May I have your name?");
-        playerName = Cli.introduceYourself();
-        System.out.println("Hello, " + playerName);
+    public void printErrorMessage(String playerName, String userGuessString) {
+        if (userGuessString.equals("yes")) {
+            System.out.printf("'" + userGuessString + "'" + " is wrong answer ;(. Correct answer was '%s'.\n", answer);
+        } else {
+            System.out.printf("'" + userGuessString + "'" + " is wrong answer ;(. Correct answer was '%s'.\n", answer);
+        }
+        System.out.println("Let's try again, " + playerName + "!");
+    }
+
+    public void printRules() {
         System.out.println("Answer 'yes' if the number is even, otherwise answer 'no'.");
-        game();
     }
 
-    @Override
-    public void endGame() {
-        System.out.println("Congratulations, " + playerName + "!");
-    }
-
-    private void game() {
-        while (counter < END_CORRECT_ANSWERS_THRESHOLD) {
-            int number = getRandomNumber();
-            System.out.println("Question: " + number);
-            String userGuessString = Cli.scanLine().toLowerCase();
-            boolean userGuess = checkGuess(userGuessString, number % 2 == 0);
-            if (userGuess) {
-                System.out.println("Correct!");
-                counter++;
-            } else {
-                printErrorMessages(userGuessString);
-                break;
-            }
-        }
-        if (counter == END_CORRECT_ANSWERS_THRESHOLD) {
-            endGame();
-        }
-    }
-
-    private boolean checkGuess(String guess, boolean even) {
+    public boolean checkGuess(String guess) {
         System.out.println("Your answer: " + guess);
         if (guess.equals("yes") || guess.equals("no")) {
-            boolean answer = guess.equals("yes");
-            return answer == even;
+            boolean checkAnswer = guess.equals("yes");
+            return checkAnswer == booleanAnswer;
         } else {
             return false;
         }
-    }
-
-    private void printErrorMessages(String userGuessString) {
-        if (userGuessString.equals("yes")) {
-            System.out.println("'" + userGuessString + "'" + " is wrong answer ;(. Correct answer was 'no'.");
-        } else {
-            System.out.println("'" + userGuessString + "'" + " is wrong answer ;(. Correct answer was 'yes'.");
-        }
-        System.out.println("Let's try again, " + playerName + "!");
     }
 }

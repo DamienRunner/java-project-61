@@ -1,18 +1,15 @@
 package hexlet.code.games;
 
 import java.util.Random;
-import java.util.Scanner;
 
-import static hexlet.code.service.GameProcessService.checkAnswer;
-import static hexlet.code.service.GameProcessService.getCounter;
-import static hexlet.code.service.GameProcessService.setPlayerName;
+import static hexlet.code.service.Constants.MAX_RANDOM;
+import static hexlet.code.service.GameProcessService.getRandomInt;
+import static hexlet.code.service.GameProcessService.getRandomOperation;
 
 public final class Calc implements Game {
 
-    private static final int MAX_RANDOM = 100;
-    private final Scanner scanner = new Scanner(System.in);
+    private static int answer;
     private final Random random = new Random();
-    private String playerName;
 
     private static int calculate(int num1, int num2, char operation) {
         return switch (operation) {
@@ -23,40 +20,30 @@ public final class Calc implements Game {
         };
     }
 
-    private static char getRandomOperation(Random random) {
-        char[] operations = {'+', '-', '*'};
-        return operations[random.nextInt(operations.length)];
+    public boolean checkGuess(String guess) {
+        try {
+            int parseAnswer = Integer.parseInt(guess);
+            return parseAnswer == answer;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
-    @Override
-    public void startGame() {
-        System.out.println("Welcome to the Brain Games!");
-        System.out.print("May I have your name? ");
-        playerName = scanner.nextLine();
-        System.out.println("Hello, " + playerName + "!");
+    public void printRules() {
         System.out.println("What is the result of the expression?");
-        setPlayerName(playerName);
-        game();
+    }
+
+    public void printQuestionAndCheck() {
+        int num1 = getRandomInt(0, MAX_RANDOM);
+        int num2 = getRandomInt(0, MAX_RANDOM);
+        char operation = getRandomOperation(random);
+        answer = calculate(num1, num2, operation);
+        System.out.printf("Question: %d %c %d\n", num1, operation, num2);
     }
 
     @Override
-    public void endGame() {
-        System.out.printf("Congratulations, %s!\n", playerName);
-    }
-
-    private void game() {
-        while (getCounter() < END_CORRECT_ANSWERS_THRESHOLD) {
-            int num1 = random.nextInt(MAX_RANDOM);
-            int num2 = random.nextInt(MAX_RANDOM);
-            char operation = getRandomOperation(random);
-            int correctAnswer = calculate(num1, num2, operation);
-            System.out.printf("Question: %d %c %d\n", num1, operation, num2);
-            if (checkAnswer(correctAnswer)) {
-                break;
-            }
-        }
-        if (getCounter() == END_CORRECT_ANSWERS_THRESHOLD) {
-            endGame();
-        }
+    public void printErrorMessage(String playerName, String userGuessString) {
+        System.out.printf("'%s' is wrong answer ;(. Correct answer was '%d'.\n", userGuessString, answer);
+        System.out.println("Let's try again, " + playerName + "!");
     }
 }
