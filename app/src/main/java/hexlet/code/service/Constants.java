@@ -1,6 +1,6 @@
 package hexlet.code.service;
 
-public class Constants {
+public final class Constants {
      public static final int MIN_RANDOM = -100;
      public static final int MAX_RANDOM = 100;
      public static final int MAX_ADDITIONAL_LENGTH = 6;
