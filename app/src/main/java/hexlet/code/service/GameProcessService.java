@@ -3,7 +3,7 @@ package hexlet.code.service;
 import java.util.Random;
 
 public class GameProcessService {
-    private static final Random random = new Random();
+    private static final Random RANDOM = new Random();
     private static int counter;
 
     public static int getCounter() {
@@ -20,6 +20,6 @@ public class GameProcessService {
     }
 
     public static int getRandomInt(int min, int max) {
-        return random.nextInt(min, max);
+        return RANDOM.nextInt(min, max);
     }
 }
