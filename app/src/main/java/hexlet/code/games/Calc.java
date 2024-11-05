@@ -2,13 +2,18 @@ package hexlet.code.games;
 
 import java.util.Random;
 
-import static hexlet.code.service.Constants.MAX_RANDOM;
 import static hexlet.code.service.GameProcessService.getRandomInt;
 import static hexlet.code.service.GameProcessService.getRandomOperation;
+import static java.lang.String.format;
+import static java.lang.String.valueOf;
 
 public final class Calc implements Game {
 
-    private static int answer;
+    private static final String RULES = "What is the result of the expression?";
+    private static final int MAX_RANDOM = 100;
+    private static int num1;
+    private static int num2;
+    private static char operation;
     private final Random random = new Random();
 
     private static int calculate(int num1, int num2, char operation) {
@@ -20,30 +25,19 @@ public final class Calc implements Game {
         };
     }
 
-    public boolean checkGuess(String guess) {
-        try {
-            int parseAnswer = Integer.parseInt(guess);
-            return parseAnswer == answer;
-        } catch (NumberFormatException e) {
-            return false;
-        }
+    public String getRules() {
+        return RULES;
     }
 
-    public void printRules() {
-        System.out.println("What is the result of the expression?");
-    }
-
-    public void printQuestionAndCheck() {
-        int num1 = getRandomInt(0, MAX_RANDOM);
-        int num2 = getRandomInt(0, MAX_RANDOM);
-        char operation = getRandomOperation(random);
-        answer = calculate(num1, num2, operation);
-        System.out.printf("Question: %d %c %d\n", num1, operation, num2);
+    public String getQuestionString() {
+        num1 = getRandomInt(0, MAX_RANDOM);
+        num2 = getRandomInt(0, MAX_RANDOM);
+        operation = getRandomOperation(random);
+        return format("%d %c %d", num1, operation, num2);
     }
 
     @Override
-    public void printErrorMessage(String playerName, String userGuessString) {
-        System.out.printf("'%s' is wrong answer ;(. Correct answer was '%d'.\n", userGuessString, answer);
-        System.out.println("Let's try again, " + playerName + "!");
+    public String getAnswerString() {
+        return valueOf(calculate(num1, num2, operation));
     }
 }

@@ -1,117 +1,55 @@
 package hexlet.code;
 
-import hexlet.code.games.Calc;
-import hexlet.code.games.Even;
 import hexlet.code.games.Game;
-import hexlet.code.games.Nod;
-import hexlet.code.games.Prime;
-import hexlet.code.games.Progression;
 
 import java.util.Scanner;
 
-import static hexlet.code.games.Game.END_CORRECT_ANSWERS_THRESHOLD;
-import static hexlet.code.service.GameProcessService.getCounter;
-import static hexlet.code.service.GameProcessService.incCounter;
 
 public class Engine {
 
     private static final Scanner SCANNER = new Scanner(System.in);
-    private static final Even EVEN_GAME = new Even();
-    private static final Game CALC_GAME = new Calc();
-    private static final Game NOD_GAME = new Nod();
-    private static final Game PROGRESSION_GAME = new Progression();
-    private static final Game IS_PRIME_GAME = new Prime();
-    private static final int CALC_GAME_NUM = 3;
-    private static final int NOD_GAME_NUM = 4;
-    private static final int PROGRESSION_GAME_NUM = 5;
-    private static final int IS_PRIME_GAME_NUM = 6;
-    private static String playerName;
+    private static final int END_CORRECT_ANSWERS_THRESHOLD = 3;
+    private static int counter;
 
-    public static void startGame(int gameId) {
-        switch (gameId) {
-            case 0:
-                break;
-            case 1:
-                startGame();
-                break;
-            case 2:
-                startGame();
-                game(EVEN_GAME);
-                break;
-            case CALC_GAME_NUM:
-                startGame();
-                game(CALC_GAME);
-                break;
-            case NOD_GAME_NUM:
-                startGame();
-                game(NOD_GAME);
-                break;
-            case PROGRESSION_GAME_NUM:
-                startGame();
-                game(PROGRESSION_GAME);
-                break;
-            case IS_PRIME_GAME_NUM:
-                startGame();
-                game(IS_PRIME_GAME);
-                break;
-            default:
-                System.out.println("Wrong number");
-        }
-    }
-
-    public static void startPlayground() {
-        while (true) {
-            System.out.println("Please enter the game number and press Enter.");
-            System.out.println("1 - Greet");
-            System.out.println("2 - Even");
-            System.out.println("3 - Calc");
-            System.out.println("4 - GCD");
-            System.out.println("5 - Progression");
-            System.out.println("6 - Prime");
-            System.out.println("0 - Exit");
-            int gameNumber;
-            try {
-                gameNumber = Integer.parseInt(SCANNER.nextLine());
-                if (gameNumber == 0) {
-                    break;
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Wrong game number");
-                continue;
-            }
-            startGame(gameNumber);
-            break;
-        }
-    }
-
-    public static void startGame() {
+    public void introducePlayerAndStartGame(Game game) {
         System.out.println("Welcome to the Brain Games!");
         System.out.println("May I have your name?");
-        playerName = SCANNER.nextLine();
+        String playerName = SCANNER.nextLine();
         System.out.println("Hello, " + playerName + "!");
+        startGame(game, playerName);
     }
 
-    public static void endGame() {
+    public void endGame(String playerName) {
         System.out.println("Congratulations, " + playerName + "!");
     }
 
-    private static void game(Game currentGame) {
-        currentGame.printRules();
-        while (getCounter() < END_CORRECT_ANSWERS_THRESHOLD) {
-            currentGame.printQuestionAndCheck();
+    private void startGame(Game currentGame, String playerName) {
+        System.out.println(currentGame.getRules());
+        while (counter < END_CORRECT_ANSWERS_THRESHOLD) {
+            System.out.println("Question: " + currentGame.getQuestionString());
             System.out.print("Your answer: ");
             String userGuessString = SCANNER.nextLine().toLowerCase();
-            boolean userGuess = currentGame.checkGuess(userGuessString);
-            if (userGuess) {
+            String answer = currentGame.getAnswerString();
+            if (checkGuess(userGuessString, answer)) {
                 System.out.println("Correct!");
-                incCounter();
+                counter++;
             } else {
-                currentGame.printErrorMessage(playerName, userGuessString);
+                printErrorMessage(playerName, userGuessString, answer);
                 break;
             }
         }
-        if (getCounter() == END_CORRECT_ANSWERS_THRESHOLD) {
-            endGame();
+        if (counter == END_CORRECT_ANSWERS_THRESHOLD) {
+            endGame(playerName);
         }
+    }
+
+    public void printErrorMessage(String playerName, String userGuessString, String answer) {
+        System.out.printf("'" + userGuessString + "'" + " is wrong answer ;(. Correct answer was '%s'.\n", answer);
+        System.out.println("Let's try again, " + playerName + "!");
+    }
+
+    public boolean checkGuess(String guess, String answer) {
+        System.out.println("Your answer: " + guess);
+        return guess.equals(answer);
     }
 }

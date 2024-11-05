@@ -1,13 +1,14 @@
 package hexlet.code.games;
 
-import static hexlet.code.service.Constants.MAX_RANDOM;
-import static hexlet.code.service.Constants.MIN_RANDOM;
 import static hexlet.code.service.GameProcessService.getRandomInt;
+import static java.lang.String.format;
 
 public final class Prime implements Game {
 
-    private static String answer;
-    private static boolean booleanAnswer;
+    private static final String RULES = "Answer 'yes' if given number is prime. Otherwise answer 'no'.";
+    private static final int MIN_RANDOM = 0;
+    private static final int MAX_RANDOM = 100;
+    private static int number;
 
     private boolean isPrime(int number) {
         if (number <= 1) {
@@ -22,30 +23,18 @@ public final class Prime implements Game {
     }
 
     @Override
-    public boolean checkGuess(String guess) {
-        return (booleanAnswer && guess.equals("yes")) || (!booleanAnswer && guess.equals("no"));
+    public String getRules() {
+        return RULES;
     }
 
     @Override
-    public void printRules() {
-        System.out.println("Answer 'yes' if given number is prime. Otherwise answer 'no'.");
+    public String getQuestionString() {
+        number = getRandomInt(MIN_RANDOM, MAX_RANDOM);
+        return format("%d", number);
     }
 
     @Override
-    public void printQuestionAndCheck() {
-        int number = getRandomInt(MIN_RANDOM, MAX_RANDOM);
-        booleanAnswer = isPrime(number);
-        answer = booleanAnswer ? "yes" : "no";
-        System.out.printf("Question: %d\n", number);
-    }
-
-    @Override
-    public void printErrorMessage(String playerName, String userGuessString) {
-        if (userGuessString.equals("yes")) {
-            System.out.printf("'" + userGuessString + "'" + " is wrong answer ;(. Correct answer was '%s'.\n", answer);
-        } else {
-            System.out.printf("'" + userGuessString + "'" + " is wrong answer ;(. Correct answer was '%s'.\n", answer);
-        }
-        System.out.println("Let's try again, " + playerName + "!");
+    public String getAnswerString() {
+        return isPrime(number) ? "yes" : "no";
     }
 }

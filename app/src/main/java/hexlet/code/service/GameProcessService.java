@@ -4,15 +4,6 @@ import java.util.Random;
 
 public class GameProcessService {
     private static final Random RANDOM = new Random();
-    private static int counter;
-
-    public static int getCounter() {
-        return counter;
-    }
-
-    public static void incCounter() {
-        counter++;
-    }
 
     public static char getRandomOperation(Random random) {
         char[] operations = {'+', '-', '*'};

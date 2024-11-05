@@ -1,33 +1,22 @@
 package hexlet.code.games;
 
 public interface Game {
-    int END_CORRECT_ANSWERS_THRESHOLD = 3;
-
-    /**
-     * Checking users guess.
-     *
-     * @param guess is the users guess.
-     * @return returns boolean guessing result.
-     */
-    boolean checkGuess(String guess);
 
     /**
      * Prints game rules.
      *
      */
-    void printRules();
+    String getRules();
 
     /**
-     * Prints games question.
+     * Get game question.
      *
      */
-    void printQuestionAndCheck();
+    String getQuestionString();
 
     /**
-     * Prints error message.
+     * Get game answer.
      *
-     * @param playerName players name.
-     * @param userGuessString users guess.
      */
-    void printErrorMessage(String playerName, String userGuessString);
+    String getAnswerString();
 }
