@@ -1,12 +1,17 @@
 package hexlet.code;
 
-import hexlet.code.games.*;
+import hexlet.code.games.Calc;
+import hexlet.code.games.Even;
+import hexlet.code.games.Game;
+import hexlet.code.games.Greet;
+import hexlet.code.games.Nod;
+import hexlet.code.games.Prime;
+import hexlet.code.games.Progression;
 
 import java.util.Scanner;
 
 public class App {
 
-    private static final Engine ENGINE = new Engine();
     private static final Scanner SCANNER = new Scanner(System.in);
     private static final int CALC_GAME_NUM = 3;
     private static final int NOD_GAME_NUM = 4;
@@ -37,7 +42,7 @@ public class App {
                 System.out.println("Wrong game number");
                 continue;
             }
-            ENGINE.introducePlayerAndStartGame(selectGame(gameNumber));
+            Engine.introducePlayerAndStartGame(selectGame(gameNumber));
             break;
         }
     }

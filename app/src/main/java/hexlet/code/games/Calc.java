@@ -16,12 +16,12 @@ public final class Calc implements Game {
     private static char operation;
     private final Random random = new Random();
 
-    private static int calculate(int num1, int num2, char operation) {
-        return switch (operation) {
-            case '+' -> num1 + num2;
-            case '-' -> num1 - num2;
-            case '*' -> num1 * num2;
-            default -> throw new IllegalArgumentException("Wrong operation: " + operation);
+    private static int calculate(int number1, int number2, char mathOperation) {
+        return switch (mathOperation) {
+            case '+' -> number1 + number2;
+            case '-' -> number1 - number2;
+            case '*' -> number1 * number2;
+            default -> throw new IllegalArgumentException("Wrong operation: " + mathOperation);
         };
     }
 

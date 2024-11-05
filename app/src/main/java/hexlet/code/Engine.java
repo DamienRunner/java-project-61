@@ -6,13 +6,13 @@ import hexlet.code.games.Greet;
 import java.util.Scanner;
 
 
-public class Engine {
+public final class Engine {
 
     private static final Scanner SCANNER = new Scanner(System.in);
     private static final int END_CORRECT_ANSWERS_THRESHOLD = 3;
     private static int counter;
 
-    public void introducePlayerAndStartGame(Game game) {
+    public static void introducePlayerAndStartGame(Game game) {
         System.out.println("Welcome to the Brain Games!");
         System.out.println("May I have your name?");
         String playerName = SCANNER.nextLine();
@@ -23,11 +23,11 @@ public class Engine {
         startGame(game, playerName);
     }
 
-    public void endGame(String playerName) {
+    public static void endGame(String playerName) {
         System.out.println("Congratulations, " + playerName + "!");
     }
 
-    private void startGame(Game currentGame, String playerName) {
+    private static void startGame(Game currentGame, String playerName) {
         System.out.println(currentGame.getRules());
         while (counter < END_CORRECT_ANSWERS_THRESHOLD) {
             System.out.println("Question: " + currentGame.getQuestionString());
@@ -47,12 +47,12 @@ public class Engine {
         }
     }
 
-    public void printErrorMessage(String playerName, String userGuessString, String answer) {
+    public static void printErrorMessage(String playerName, String userGuessString, String answer) {
         System.out.printf("'" + userGuessString + "'" + " is wrong answer ;(. Correct answer was '%s'.\n", answer);
         System.out.println("Let's try again, " + playerName + "!");
     }
 
-    public boolean checkGuess(String guess, String answer) {
+    public static boolean checkGuess(String guess, String answer) {
         System.out.println("Your answer: " + guess);
         return guess.equals(answer);
     }
