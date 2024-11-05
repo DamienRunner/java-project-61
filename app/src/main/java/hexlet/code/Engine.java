@@ -1,6 +1,7 @@
 package hexlet.code;
 
 import hexlet.code.games.Game;
+import hexlet.code.games.Greet;
 
 import java.util.Scanner;
 
@@ -16,6 +17,9 @@ public class Engine {
         System.out.println("May I have your name?");
         String playerName = SCANNER.nextLine();
         System.out.println("Hello, " + playerName + "!");
+        if (game instanceof Greet) {
+            return;
+        }
         startGame(game, playerName);
     }
 
