@@ -17,20 +17,21 @@ public final class Engine {
         System.out.println("Hello, " + playerName + "!");
         System.out.println(currentGame.getRules());
         for (int counter = 0; counter < END_CORRECT_ANSWERS_THRESHOLD; counter++) {
-            System.out.println("Question: " + currentGame.getGameData()[0]);
-            System.out.print("Your answer: ");
+            String[] gameData = currentGame.getGameData();
+            System.out.println("Question: " + gameData[0]);
             String userGuessString = SCANNER.nextLine().toLowerCase();
-            String answer = currentGame.getGameData()[1];
+            String answer = gameData[1];
             System.out.println("Your answer: " + userGuessString);
             if (userGuessString.equals(answer)) {
                 System.out.println("Correct!");
-                counter++;
+                if (counter == 2) {
+                    System.out.println("Congratulations, " + playerName + "!");
+                }
             } else {
                 printErrorMessage(playerName, userGuessString, answer);
                 break;
             }
         }
-        System.out.println("Congratulations, " + playerName + "!");
     }
 
     public static void printErrorMessage(String playerName, String userGuessString, String answer) {
