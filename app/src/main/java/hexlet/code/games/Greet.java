@@ -8,12 +8,7 @@ public final class Greet implements Game {
     }
 
     @Override
-    public String getQuestionString() {
-        return "";
-    }
-
-    @Override
-    public String getAnswerString() {
-        return "";
+    public String[] getGameData() {
+        return null;
     }
 }

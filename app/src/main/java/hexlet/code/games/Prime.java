@@ -8,7 +8,6 @@ public final class Prime implements Game {
     private static final String RULES = "Answer 'yes' if given number is prime. Otherwise answer 'no'.";
     private static final int MIN_RANDOM = 0;
     private static final int MAX_RANDOM = 100;
-    private static int question;
 
     private boolean isPrime(int number) {
         if (number <= 1) {
@@ -28,13 +27,8 @@ public final class Prime implements Game {
     }
 
     @Override
-    public String getQuestionString() {
-        question = getRandomInt(MIN_RANDOM, MAX_RANDOM);
-        return format("%d", question);
-    }
-
-    @Override
-    public String getAnswerString() {
-        return isPrime(question) ? "yes" : "no";
+    public String[] getGameData() {
+        int question = getRandomInt(MIN_RANDOM, MAX_RANDOM);
+        return new String[]{format("%d", question), isPrime(question) ? "yes" : "no"};
     }
 }

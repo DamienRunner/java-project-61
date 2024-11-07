@@ -3,11 +3,11 @@ package hexlet.code;
 import hexlet.code.games.Calc;
 import hexlet.code.games.Even;
 import hexlet.code.games.Game;
-import hexlet.code.games.Greet;
 import hexlet.code.games.Nod;
 import hexlet.code.games.Prime;
 import hexlet.code.games.Progression;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class App {
@@ -42,7 +42,7 @@ public class App {
                 System.out.println("Wrong game number");
                 continue;
             }
-            Engine.introducePlayerAndStartGame(selectGame(gameNumber));
+            Engine.startGame(Objects.requireNonNull(selectGame(gameNumber)));
             break;
         }
     }
@@ -52,7 +52,8 @@ public class App {
             case 0:
                 break;
             case 1:
-                return new Greet();
+                Cli.introduceYourself();
+                break;
             case 2:
                 return new Even();
             case CALC_GAME_NUM:

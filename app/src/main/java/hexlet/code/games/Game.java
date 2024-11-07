@@ -14,12 +14,5 @@ public interface Game {
      *
      * @return question string.
      */
-    String getQuestionString();
-
-    /**
-     * Get game answer.
-     *
-     * @return answer string.
-     */
-    String getAnswerString();
+    String[] getGameData();
 }

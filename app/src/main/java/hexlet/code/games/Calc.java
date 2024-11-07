@@ -11,9 +11,6 @@ public final class Calc implements Game {
 
     private static final String RULES = "What is the result of the expression?";
     private static final int MAX_RANDOM = 100;
-    private static int num1;
-    private static int num2;
-    private static char operation;
     private final Random random = new Random();
 
     private static int calculate(int number1, int number2, char mathOperation) {
@@ -29,15 +26,10 @@ public final class Calc implements Game {
         return RULES;
     }
 
-    public String getQuestionString() {
-        num1 = getRandomInt(0, MAX_RANDOM);
-        num2 = getRandomInt(0, MAX_RANDOM);
-        operation = getRandomOperation(random);
-        return format("%d %c %d", num1, operation, num2);
-    }
-
-    @Override
-    public String getAnswerString() {
-        return valueOf(calculate(num1, num2, operation));
+    public String[] getGameData() {
+        int num1 = getRandomInt(0, MAX_RANDOM);
+        int num2 = getRandomInt(0, MAX_RANDOM);
+        char operation = getRandomOperation(random);
+        return new String[]{format("%d %c %d", num1, operation, num2), valueOf(calculate(num1, num2, operation))};
     }
 }

@@ -9,7 +9,6 @@ public final class Progression implements Game {
     private static final String RULES = "What number is missing in the progression?";
     private static final int MIN_LENGTH = 5;
     private static final int MAX_LENGTH = 10;
-    private static int answer;
 
     @Override
     public String getRules() {
@@ -17,7 +16,7 @@ public final class Progression implements Game {
     }
 
     @Override
-    public String getQuestionString() {
+    public String[] getGameData() {
         int length = getRandomInt(0, MAX_ADDITIONAL_LENGTH) + MIN_LENGTH;
         int start = getRandomInt(0, MAX_LENGTH);
         int step = getRandomInt(1, MIN_LENGTH);
@@ -34,12 +33,6 @@ public final class Progression implements Game {
                 question.append(progression[i]).append(" ");
             }
         }
-        answer = progression[hiddenIndex];
-        return question.toString();
-    }
-
-    @Override
-    public String getAnswerString() {
-        return valueOf(answer);
+        return new String[]{question.toString(), valueOf(progression[hiddenIndex])};
     }
 }
