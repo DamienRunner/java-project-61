@@ -21,9 +21,6 @@ public final class Prime implements Game {
         return "yes";
     }
 
-    public static void main(String[] args) {
-        System.out.println(new Prime().isPrime(31));
-    }
     @Override
     public String getRules() {
         return RULES;
