@@ -7,7 +7,6 @@ import hexlet.code.games.Nod;
 import hexlet.code.games.Prime;
 import hexlet.code.games.Progression;
 
-import java.util.Objects;
 import java.util.Scanner;
 
 public class App {
@@ -38,22 +37,21 @@ public class App {
                 if (gameNumber == 0) {
                     break;
                 }
+                if (gameNumber == 1) {
+                    Cli.introduceYourself();
+                    break;
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Wrong game number");
                 continue;
             }
-            Engine.startGame(Objects.requireNonNull(selectGame(gameNumber)));
+            Engine.startGame(selectGame(gameNumber));
             break;
         }
     }
 
     public static Game selectGame(int gameId) {
         switch (gameId) {
-            case 0:
-                break;
-            case 1:
-                Cli.introduceYourself();
-                break;
             case 2:
                 return new Even();
             case CALC_GAME_NUM:
