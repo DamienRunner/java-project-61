@@ -9,16 +9,16 @@ public final class Prime implements Game {
     private static final int MIN_RANDOM = 0;
     private static final int MAX_RANDOM = 100;
 
-    private String isPrime(int number) {
+    private boolean isPrime(int number) {
         if (number <= 1) {
-            return "no";
+            return false;
         }
         for (int i = 2; i <= Math.sqrt(number); i++) {
             if (number % i == 0) {
-                return "no";
+                return false;
             }
         }
-        return "yes";
+        return true;
     }
 
     @Override
@@ -29,6 +29,6 @@ public final class Prime implements Game {
     @Override
     public String[] getGameData() {
         int question = getRandomInt(MIN_RANDOM, MAX_RANDOM);
-        return new String[]{format("%d", question), isPrime(question)};
+        return new String[]{format("%d", question), isPrime(question) ? "yes" : "no"};
     }
 }

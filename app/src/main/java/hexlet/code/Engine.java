@@ -19,23 +19,17 @@ public final class Engine {
         for (int counter = 0; counter < END_CORRECT_ANSWERS_THRESHOLD; counter++) {
             String[] gameData = currentGame.getGameData();
             System.out.println("Question: " + gameData[0]);
-            String userGuessString = SCANNER.nextLine().toLowerCase();
+            String userGuess = SCANNER.nextLine().toLowerCase();
             String answer = gameData[1];
-            System.out.println("Your answer: " + userGuessString);
-            if (userGuessString.equals(answer)) {
+            System.out.println("Your answer: " + userGuess);
+            if (userGuess.equals(answer)) {
                 System.out.println("Correct!");
-                if (counter == 2) {
-                    System.out.println("Congratulations, " + playerName + "!");
-                }
             } else {
-                printErrorMessage(playerName, userGuessString, answer);
-                break;
+                System.out.printf("'" + userGuess + "'" + " is wrong answer ;(. Correct answer was '%s'.\n", answer);
+                System.out.println("Let's try again, " + playerName + "!");
+                return;
             }
         }
-    }
-
-    public static void printErrorMessage(String playerName, String userGuessString, String answer) {
-        System.out.printf("'" + userGuessString + "'" + " is wrong answer ;(. Correct answer was '%s'.\n", answer);
-        System.out.println("Let's try again, " + playerName + "!");
+        System.out.println("Congratulations, " + playerName + "!");
     }
 }
